@@ -52,23 +52,23 @@ fn test_id() {
 
 pub const MAX_REWARD_FEE: u32 = 1_000; //basis points, 10% max reward fee
 
-fn check_context<T>(ctx: &Context<T>) -> Result<()> {
-    if !check_id(ctx.program_id) {
-        return Err(CommonError::InvalidProgramId.into());
-    }
-    //make sure there are no extra accounts
-    if !ctx.remaining_accounts.is_empty() {
-        return Err(CommonError::UnexpectedAccount.into());
-    }
+// fn check_context<T>(ctx: &Context<T>) -> Result<()> {
+//     if !check_id(ctx.program_id) {
+//         return Err(CommonError::InvalidProgramId.into());
+//     }
+//     //make sure there are no extra accounts
+//     if !ctx.remaining_accounts.is_empty() {
+//         return Err(CommonError::UnexpectedAccount.into());
+//     }
 
-    Ok(())
-}
+//     Ok(())
+// }
 
 //-----------------------------------------------------
 #[program]
 pub mod marinade_finance {
 
-    use super::*;
+    // use super::*;
 
     //----------------------------------------------------------------------------
     // Stable Instructions, part of devnet-MVP-1 beta-test at marinade.finance
@@ -79,57 +79,57 @@ pub mod marinade_finance {
     // Validator list management
     //----------------------------------------------------------------------------
 
-    pub fn initialize(ctx: Context<Initialize>, data: InitializeData) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(data)?;
-        Ok(())
-    }
+    // pub fn initialize(ctx: Context<Initialize>, data: InitializeData) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(data)?;
+    //     Ok(())
+    // }
 
-    pub fn change_authority(
-        ctx: Context<ChangeAuthority>,
-        data: ChangeAuthorityData,
-    ) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(data)
-    }
+    // pub fn change_authority(
+    //     ctx: Context<ChangeAuthority>,
+    //     data: ChangeAuthorityData,
+    // ) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(data)
+    // }
 
-    pub fn add_validator(ctx: Context<AddValidator>, score: u32) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(score)
-    }
+    // pub fn add_validator(ctx: Context<AddValidator>, score: u32) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(score)
+    // }
 
-    pub fn remove_validator(
-        ctx: Context<RemoveValidator>,
-        index: u32,
-        validator_vote: Pubkey,
-    ) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(index, validator_vote)
-    }
+    // pub fn remove_validator(
+    //     ctx: Context<RemoveValidator>,
+    //     index: u32,
+    //     validator_vote: Pubkey,
+    // ) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(index, validator_vote)
+    // }
 
-    pub fn set_validator_score(
-        ctx: Context<SetValidatorScore>,
-        index: u32,
-        validator_vote: Pubkey,
-        score: u32,
-    ) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(index, validator_vote, score)
-    }
+    // pub fn set_validator_score(
+    //     ctx: Context<SetValidatorScore>,
+    //     index: u32,
+    //     validator_vote: Pubkey,
+    //     score: u32,
+    // ) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(index, validator_vote, score)
+    // }
 
-    pub fn config_validator_system(
-        ctx: Context<ConfigValidatorSystem>,
-        extra_runs: u32,
-    ) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(extra_runs)
-    }
+    // pub fn config_validator_system(
+    //     ctx: Context<ConfigValidatorSystem>,
+    //     extra_runs: u32,
+    // ) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(extra_runs)
+    // }
 
     // deposit AKA stake, AKA deposit_sol
-    pub fn deposit(ctx: Context<Deposit>, lamports: u64) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(lamports)
-    }
+    // pub fn deposit(ctx: Context<Deposit>, lamports: u64) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(lamports)
+    // }
 
     // // SPL stake pool like
     // pub fn deposit_stake_account(
@@ -140,33 +140,33 @@ pub mod marinade_finance {
     //     ctx.accounts.process(validator_index)
     // }
 
-    pub fn liquid_unstake(ctx: Context<LiquidUnstake>, msol_amount: u64) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(msol_amount)
-    }
+    // pub fn liquid_unstake(ctx: Context<LiquidUnstake>, msol_amount: u64) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(msol_amount)
+    // }
 
-    pub fn add_liquidity(ctx: Context<AddLiquidity>, lamports: u64) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(lamports)
-    }
+    // pub fn add_liquidity(ctx: Context<AddLiquidity>, lamports: u64) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(lamports)
+    // }
 
-    pub fn remove_liquidity(ctx: Context<RemoveLiquidity>, tokens: u64) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(tokens)
-    }
+    // pub fn remove_liquidity(ctx: Context<RemoveLiquidity>, tokens: u64) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(tokens)
+    // }
 
-    pub fn config_lp(ctx: Context<ConfigLp>, params: ConfigLpParams) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(params)
-    }
+    // pub fn config_lp(ctx: Context<ConfigLp>, params: ConfigLpParams) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(params)
+    // }
 
-    pub fn config_marinade(
-        ctx: Context<ConfigMarinade>,
-        params: ConfigMarinadeParams,
-    ) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(params)
-    }
+    // pub fn config_marinade(
+    //     ctx: Context<ConfigMarinade>,
+    //     params: ConfigMarinadeParams,
+    // ) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(params)
+    // }
 
     //-------------------------------------------------------------------------------------
     // WIP Instructions, wil be part of devnet-MVP-2 beta-test release at marinade.finance
@@ -178,15 +178,15 @@ pub mod marinade_finance {
     // * update (compute stake-account rewards & update mSOL price)
     //-------------------------------------------------------------------------------------
 
-    pub fn order_unstake(ctx: Context<OrderUnstake>, msol_amount: u64) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process(msol_amount)
-    }
+    // pub fn order_unstake(ctx: Context<OrderUnstake>, msol_amount: u64) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process(msol_amount)
+    // }
 
-    pub fn claim(ctx: Context<Claim>) -> Result<()> {
-        check_context(&ctx)?;
-        ctx.accounts.process()
-    }
+    // pub fn claim(ctx: Context<Claim>) -> Result<()> {
+    //     check_context(&ctx)?;
+    //     ctx.accounts.process()
+    // }
 
     // pub fn stake_reserve(ctx: Context<StakeReserve>, validator_index: u32) -> Result<()> {
     //     check_context(&ctx)?;
