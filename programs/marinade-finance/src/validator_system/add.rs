@@ -1,6 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_lang::solana_program::{program::invoke_signed, system_instruction, system_program};
 
+use crate::error::CommonError;
 use crate::{
     checks::{check_address, check_owner_program},
     AddValidator, ID,
@@ -8,7 +9,7 @@ use crate::{
 //use super::{ValidatorRecord, ValidatorSystem};
 
 impl<'info> AddValidator<'info> {
-    pub fn process(&mut self, score: u32) -> ProgramResult {
+    pub fn process(&mut self, score: u32) -> Result<()> {
         self.state
             .validator_system
             .check_validator_manager_authority(self.manager_authority.key)?;
@@ -26,7 +27,7 @@ impl<'info> AddValidator<'info> {
                 "Rent payer must have at least {} lamports",
                 self.rent.minimum_balance(0)
             );
-            return Err(ProgramError::InsufficientFunds);
+            return err!(CommonError::CatchAll);
         }
         check_address(
             self.system_program.key,

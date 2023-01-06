@@ -1,6 +1,6 @@
 use std::ops::Deref;
 
-use anchor_lang::prelude::ProgramError;
+use anchor_lang::prelude::*;
 use anchor_lang::solana_program::stake::state::StakeState;
 
 #[derive(Debug, Clone)]
@@ -9,11 +9,11 @@ pub struct StakeWrapper {
 }
 
 impl anchor_lang::AccountDeserialize for StakeWrapper {
-    fn try_deserialize(buf: &mut &[u8]) -> Result<Self, ProgramError> {
+    fn try_deserialize(buf: &mut &[u8]) -> Result<Self> {
         Self::try_deserialize_unchecked(buf)
     }
 
-    fn try_deserialize_unchecked(buf: &mut &[u8]) -> Result<Self, ProgramError> {
+    fn try_deserialize_unchecked(buf: &mut &[u8]) -> Result<Self> {
         let result = Self {
             inner: bincode::deserialize(buf).map_err(|_| ProgramError::InvalidAccountData)?,
         };

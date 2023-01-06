@@ -1,3 +1,8 @@
+# marinade - Pool Party
+The marinade program stripped down for use by pool party.
+Anchor has been hastily upgraded to 0.25.0, results and instructions
+may be broken.
+
 # marinade-anchor
 Marinade-finance liquid staking program for the Solana blockchain
 

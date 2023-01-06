@@ -1,6 +1,6 @@
 use anchor_lang::prelude::*;
 
-#[error]
+#[error_code]
 pub enum CommonError {
     #[msg("Wrong reserve owner. Must be a system account")]
     WrongReserveOwner,
@@ -82,4 +82,7 @@ pub enum CommonError {
 
     #[msg("BAD1 Invalid validator")]
     InvalidValidator = 47525,
+
+    #[msg("catch all error code")]
+    CatchAll = 66666,
 }
