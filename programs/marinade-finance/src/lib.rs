@@ -70,7 +70,7 @@ pub const MAX_REWARD_FEE: u32 = 1_000; //basis points, 10% max reward fee
 #[program]
 pub mod marinade_finance {
 
-    // use super::*;
+    use super::*;
 
     //     //----------------------------------------------------------------------------
     //     // Stable Instructions, part of devnet-MVP-1 beta-test at marinade.finance
@@ -142,10 +142,10 @@ pub mod marinade_finance {
     //     //     ctx.accounts.process(validator_index)
     //     // }
 
-    //     // pub fn liquid_unstake(ctx: Context<LiquidUnstake>, msol_amount: u64) -> Result<()> {
-    //     //     check_context(&ctx)?;
-    //     //     ctx.accounts.process(msol_amount)
-    //     // }
+    pub fn liquid_unstake(ctx: Context<LiquidUnstake>, msol_amount: u64) -> Result<()> {
+        // check_context(&ctx)?;
+        ctx.accounts.process(msol_amount)
+    }
 
     //     // pub fn add_liquidity(ctx: Context<AddLiquidity>, lamports: u64) -> Result<()> {
     //     //     check_context(&ctx)?;
@@ -524,33 +524,33 @@ pub struct Deposit<'info> {
 // }
 
 //-----------------------------------------------------
-// #[derive(Accounts)]
-// pub struct LiquidUnstake<'info> {
-//     #[account(mut)]
-//     pub state: Account<'info, State>,
+#[derive(Accounts)]
+pub struct LiquidUnstake<'info> {
+    #[account(mut)]
+    pub state: Account<'info, State>,
 
-//     #[account(mut)]
-//     pub msol_mint: Account<'info, Mint>,
+    #[account(mut)]
+    pub msol_mint: Account<'info, Mint>,
 
-//     #[account(mut)]
-//     pub liq_pool_sol_leg_pda: AccountInfo<'info>,
+    #[account(mut)]
+    pub liq_pool_sol_leg_pda: AccountInfo<'info>,
 
-//     #[account(mut)]
-//     pub liq_pool_msol_leg: Account<'info, TokenAccount>,
-//     #[account(mut)]
-//     pub treasury_msol_account: AccountInfo<'info>,
+    #[account(mut)]
+    pub liq_pool_msol_leg: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub treasury_msol_account: AccountInfo<'info>,
 
-//     #[account(mut)]
-//     pub get_msol_from: Account<'info, TokenAccount>,
-//     #[account(signer)]
-//     pub get_msol_from_authority: AccountInfo<'info>, //burn_msol_from owner or delegate_authority
+    #[account(mut)]
+    pub get_msol_from: Account<'info, TokenAccount>,
+    #[account(signer)]
+    pub get_msol_from_authority: AccountInfo<'info>, //burn_msol_from owner or delegate_authority
 
-//     #[account(mut)]
-//     pub transfer_sol_to: AccountInfo<'info>,
+    #[account(mut)]
+    pub transfer_sol_to: AccountInfo<'info>,
 
-//     pub system_program: AccountInfo<'info>,
-//     pub token_program: AccountInfo<'info>,
-// }
+    pub system_program: AccountInfo<'info>,
+    pub token_program: AccountInfo<'info>,
+}
 //-----------------------------------------------------
 #[derive(Accounts)]
 pub struct AddValidator<'info> {
